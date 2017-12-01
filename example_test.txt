@@ -1,0 +1,178 @@
+<?php
+/**
+ * @package TEST
+ * @version 1.0.0
+ *
+ * Plugin Name: HD - TEST
+ * Plugin URI: https://wordpress.org/plugins/Hyperdigital_WatchWholesale/
+ * Version: 1.0.0
+ * Description: Test
+ * Author: hyperdigital
+ * Author URI: https://www.hyperdigital.de/wordpress-plugins
+ * Text Domain: test
+ */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include 'hd_custom_meta/autoload.php';
+
+class Test
+{
+    public $class = null;
+    public function __construct()
+    {
+        add_action('init', array($this, 'initializeClasses'));
+
+        add_action('init', array($this, 'addCustomMetaboxesClass'));
+    }
+
+    public function initializeClasses()
+    {
+        $this->class = new \HdCustomMeta\CustomPostType(
+            'company',
+            array(
+                'labels' => array(
+                    'name' => __('Company', 'hd_watchwholesale'),
+                    'singular_name' => __('Company', 'hd_watchwholesale'),
+                    'add_new' => __('Add new company', 'hd_watchwholesale'),
+                    'add_new_item' => __('Add new company', 'hd_watchwholesale'),
+                    'edit_item' => __('Edit company', 'hd_watchwholesale'),
+                    'new_item' => __('Add new company', 'hd_watchwholesale'),
+                    'view_item' => __('View company', 'hd_watchwholesale'),
+                    'search_items' => __('Search companies', 'hd_watchwholesale'),
+                    'not_found' => __('No companies found', 'hd_watchwholesale'),
+                    'not_found_in_trash' => __('No companies found in trash', 'hd_watchwholesale')
+                ),
+                'public' => true,
+                'supports' => array('title'),
+                'capability_type' => 'page',
+                'rewrite' => array("slug" => "company"), // Permalinks format
+                'menu_position' => 1,
+                'publicly_queryable' => true,
+                'has_archive' => true,
+            )
+        );
+    }
+
+    public function addCustomMetaboxesClass()
+    {
+        $custom_text_value = get_post_meta( $_GET['post'], 'new_field_1', true );
+
+        $this->class->addMetaBox(
+            'test3',
+            'Titulek 3',
+            [
+                'tabs' => [
+                    [
+                        'id' => 'basic_fields',
+                        'label' => 'Basic fields',
+                        'fields' => [
+                            [
+                                'label' => 'Text',
+                                'description' => 'Normalni textove pole',
+                                'type' => 'text',
+                                'id' => 'text1',
+                            ],
+                            [
+                                'label' => 'Custom text',
+                                'description' => 'Obycejne pole, ktere umi i ukladat hodnoty',
+                                'type' => 'custom_text',
+                                'content' => 'dsadadasdas<b>fdsfsd</b><input type="text" value="'.$custom_text_value.'" name="new_field_1">',
+                                'save_fields' => [
+                                    'new_field_1'
+                                ],
+                            ],
+                            [
+                                'label' => 'Inteager',
+                                'description' => 'Normalni textove pole, ktere povoluje pouze cisla',
+                                'type' => 'inteager',
+                                'id' => 'text3',
+                                'min' => 10,
+                                'max'  => 50,
+                            ],
+                            [
+                                'label' => 'Email',
+                                'description' => 'Normalni textove pole jako email',
+                                'type' => 'email',
+                                'id' => 'text4',
+                            ],
+                            [
+                                'label' => 'Select',
+                                'description' => 'Normalni selectbox',
+                                'type' => 'select',
+                                'id' => 'text5',
+                                'multiple' => true,
+                                'options' => [
+                                    'option1' => 'Option 1',
+                                    'option2' => 'Option 2',
+                                    'option3' => 'Option 3',
+                                    'option4' => 'Option 4',
+                                    'option5' => 'Option 5',
+                                ]
+                            ],
+                            [
+                                'label' => 'Checkbox',
+                                'description' => 'Normalni checkboxy',
+                                'type' => 'checkbox',
+                                'id' => 'text6',
+                                'options' => [
+                                    'option1' => 'Option 1',
+                                    'option2' => 'Option 2',
+                                    'option3' => 'Option 3',
+                                    'option4' => 'Option 4',
+                                    'option5' => 'Option 5',
+                                ]
+                            ],
+                            [
+                                'label' => 'Radio',
+                                'description' => 'Normalni radio buttony',
+                                'type' => 'radio',
+                                'id' => 'text7',
+                                'options' => [
+                                    'option1' => 'Option 1',
+                                    'option2' => 'Option 2',
+                                    'option3' => 'Option 3',
+                                    'option4' => 'Option 4',
+                                    'option5' => 'Option 5',
+                                ]
+                            ],
+                            [
+                                'label' => 'Code',
+                                'description' => 'Textove pole, ktere probehne jako kod',
+                                'type' => 'code',
+                                'id' => 'text8',
+                                'mode' => 'css', //javascript, php
+                            ],
+                            [
+                                'label' => 'Color',
+                                'description' => 'Vyber barvy',
+                                'type' => 'color',
+                                'id' => 'text9',
+                            ],
+                            [
+                                'label' => 'Datum',
+                                'description' => 'Vyber datumu',
+                                'type' => 'date',
+                                'id' => 'text10',
+                            ],
+                            [
+                                'label' => 'Cas',
+                                'description' => 'Vyber casu',
+                                'type' => 'time',
+                                'id' => 'text11',
+                            ],
+                            [
+                                'label' => 'Cas a datum',
+                                'description' => 'Vyber casu a data',
+                                'type' => 'date_time',
+                                'id' => 'text11',
+                            ],
+                        ]
+                    ],
+                ]
+            ]
+        );
+    }
+}
+
+$test = new Test();
