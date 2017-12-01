@@ -1,0 +1,90 @@
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the .tablinkss inside the tab */
+div.tab .tablinks {
+    background-color: inherit;
+    height: auto;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of .tablinkss on hover */
+div.tab .tablinks:hover {
+    background-color: #ddd;
+}
+div.tab .open{
+    background-color: #ccc;
+}
+div.tab .open:hover{
+    background-color: #bbb;
+}
+
+/* Create an active/current tablink class */
+div.tab .tablinks.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #eee;
+}
+.closed{
+    display: none;
+}
+.tabcontent {
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.content_tabs_table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.content_tabs_table td{
+    vertical-align: top;
+    padding: 15px 10px;
+}
+.label_and_description{
+    width: 200px;
+}
+.label_and_description label{
+    font-weight: bold;
+    font-size: 15px;
+}
+.label_and_description p{
+    font-size: 14px;
+}
+.text_field{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px 5px;
+}
+.textarea{
+    min-height: 300px;
+}
+.code_editor{
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+}
